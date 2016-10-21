@@ -14,12 +14,12 @@ import javax.xml.ws.handler.MessageContext;
 @WebServise (name= "Blackjack", serviceName= "BlackjackService")
 public class Blackjack 
 {
-	//χρησιμοποιεί το @Resource για να δημιουργήσει ένα WebServiceContext για παρακολούθηση της συνόδου 
+	//Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ― Ο„ΞΏ @Resource Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉ Ξ­Ξ½Ξ± WebServiceContext Ξ³ΞΉΞ± Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ· Ο„Ξ·Ο‚ ΟƒΟ…Ξ½ΟΞ΄ΞΏΟ… 
 	private @Resource WebServiceContext WebServiceContext;
-	private MessageContext messagecontext; //χρησιμοποιείται στην παρακολούθηση της συνόδου
-	private HttpSession session; //αποθηκεύει ιδιότητες στης συνόδου
+	private MessageContext messagecontext; //Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ· Ο„Ξ·Ο‚ ΟƒΟ…Ξ½ΟΞ΄ΞΏΟ…
+	private HttpSession session; //Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞµΞΉ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ ΟƒΟ„Ξ·Ο‚ ΟƒΟ…Ξ½ΟΞ΄ΞΏΟ…
 	
-	//μοιράζει ένα χαρτί
+	//ΞΌΞΏΞΉΟΞ¬Ξ¶ΞµΞΉ Ξ­Ξ½Ξ± Ο‡Ξ±ΟΟ„Ξ―
 	@WebMethod( operationName = "dealCard" )
 	public String dealCard()
 	{
@@ -28,90 +28,90 @@ public class Blackjack
 		ArrayList< String > deck = 
 				( ArrayList< String > ) session.getAttribute( "deck" );
 		
-		card = deck.get(0); //λήψη κορυφαίου χαρτιού τράπουλας
-		deck.remove(0); //αφαιρεί το κορυφαίο χαρτί της τράπουλας
+		card = deck.get(0); //Ξ»Ξ®ΟΞ· ΞΊΞΏΟΟ…Ο†Ξ±Ξ―ΞΏΟ… Ο‡Ξ±ΟΟ„ΞΉΞΏΟ Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ±Ο‚
+		deck.remove(0); //Ξ±Ο†Ξ±ΞΉΟΞµΞ― Ο„ΞΏ ΞΊΞΏΟΟ…Ο†Ξ±Ξ―ΞΏ Ο‡Ξ±ΟΟ„Ξ― Ο„Ξ·Ο‚ Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ±Ο‚
 		
 		return card;
 		
-	}//τέλος της WebMethod dealCard
+	}//Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ WebMethod dealCard
 	
-	//ανακατεύει τη τράπουλα
+	//Ξ±Ξ½Ξ±ΞΊΞ±Ο„ΞµΟΞµΞΉ Ο„Ξ· Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ±
 	@WebMethod( operationName = "shuffle" )
 	public void shuffle()
 	{
-		//λαμβάνει το αντικείμενο HttpSession για αποθήκευση της τράπουλας για τον τρέχοντα πελάτη
+		//Ξ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΞΉ Ο„ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ HttpSession Ξ³ΞΉΞ± Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ο„Ξ·Ο‚ Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ±Ο‚ Ξ³ΞΉΞ± Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„Ξ± Ο€ΞµΞ»Ξ¬Ο„Ξ·
 		messageContext = webServiceContext.getMessageContext();
 		session = ( ( HttpServletRequest ) messageContext.get(MessageContext.SERVLET_REQUEST ) ).getsession();
 		
-		//γεμίζει την τράπουλα
+		//Ξ³ΞµΞΌΞ―Ξ¶ΞµΞΉ Ο„Ξ·Ξ½ Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ±
 		ArrayList< String > deck = new ArrayList <String > ();
 		
-		for ( int face =1; face<=13; face++) //διασχίζει τις τιμές
-			for (int suit =0; suit<=3; suit++) //διασχίζει τα είδη των χαρτιών
-				deck.add(face + " " + suit); //προσθήκη κάθε χαρτιού στην τράπουλα
+		for ( int face =1; face<=13; face++) //Ξ΄ΞΉΞ±ΟƒΟ‡Ξ―Ξ¶ΞµΞΉ Ο„ΞΉΟ‚ Ο„ΞΉΞΌΞ­Ο‚
+			for (int suit =0; suit<=3; suit++) //Ξ΄ΞΉΞ±ΟƒΟ‡Ξ―Ξ¶ΞµΞΉ Ο„Ξ± ΞµΞ―Ξ΄Ξ· Ο„Ο‰Ξ½ Ο‡Ξ±ΟΟ„ΞΉΟΞ½
+				deck.add(face + " " + suit); //Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞΊΞ¬ΞΈΞµ Ο‡Ξ±ΟΟ„ΞΉΞΏΟ ΟƒΟ„Ξ·Ξ½ Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ±
 		
-		String tempCard; //κρατά χαρτιά προσωρινά στη διάρκεια της ενναλαγής
-		Random randomObject = new Random (); //δημιουργεί τυχαίους αριθμούς
-		int index; //δείκτης τυχαίου επιλεγμένου χαρτιού
+		String tempCard; //ΞΊΟΞ±Ο„Ξ¬ Ο‡Ξ±ΟΟ„ΞΉΞ¬ Ο€ΟΞΏΟƒΟ‰ΟΞΉΞ½Ξ¬ ΟƒΟ„Ξ· Ξ΄ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ο„Ξ·Ο‚ ΞµΞ½Ξ½Ξ±Ξ»Ξ±Ξ³Ξ®Ο‚
+		Random randomObject = new Random (); //Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ― Ο„Ο…Ο‡Ξ±Ξ―ΞΏΟ…Ο‚ Ξ±ΟΞΉΞΈΞΌΞΏΟΟ‚
+		int index; //Ξ΄ΞµΞ―ΞΊΟ„Ξ·Ο‚ Ο„Ο…Ο‡Ξ±Ξ―ΞΏΟ… ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ… Ο‡Ξ±ΟΟ„ΞΉΞΏΟ
 		
-		for( int i =0; i<deck.size(); i++) //ανακάτεμα
+		for( int i =0; i<deck.size(); i++) //Ξ±Ξ½Ξ±ΞΊΞ¬Ο„ΞµΞΌΞ±
 		{
 			index = randomObject.nextInt (deck.size() -1);
 			
-			//ενναλαγή χαρτιού στη θέση i με τυχαίο επιλεγμένο χαρτί
+			//ΞµΞ½Ξ½Ξ±Ξ»Ξ±Ξ³Ξ® Ο‡Ξ±ΟΟ„ΞΉΞΏΟ ΟƒΟ„Ξ· ΞΈΞ­ΟƒΞ· i ΞΌΞµ Ο„Ο…Ο‡Ξ±Ξ―ΞΏ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ Ο‡Ξ±ΟΟ„Ξ―
 			tempCard = deck.get(i);
 			deck.set(i,deck.get(index));
 			deck.set(index, tempcard);
 			
-		}//τέλος for
+		}//Ο„Ξ­Ξ»ΞΏΟ‚ for
 		
-		//προσθέτει αυτήν τη τράπουλα στη σύνοδο του χρήστη
+		//Ο€ΟΞΏΟƒΞΈΞ­Ο„ΞµΞΉ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ· Ο„ΟΞ¬Ο€ΞΏΟ…Ξ»Ξ± ΟƒΟ„Ξ· ΟƒΟΞ½ΞΏΞ΄ΞΏ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·
 		session.setAttribute( "deck", deck);
 		
-	}//τέλος της WebMethod
+	}//Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ WebMethod
 	
-	//προσδιορίζει τη τιμή ενός μοιράσματος
+	//Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞ―Ξ¶ΞµΞΉ Ο„Ξ· Ο„ΞΉΞΌΞ® ΞµΞ½ΟΟ‚ ΞΌΞΏΞΉΟΞ¬ΟƒΞΌΞ±Ο„ΞΏΟ‚
 	@WebMethod ( operationName = " getHandValue" );
 	public int getHandValue( @WebParam ( name = "hand") String hand )
 	{
-		//χωρίζει το μοίρασμα σε χαρτιά
+		//Ο‡Ο‰ΟΞ―Ξ¶ΞµΞΉ Ο„ΞΏ ΞΌΞΏΞ―ΟΞ±ΟƒΞΌΞ± ΟƒΞµ Ο‡Ξ±ΟΟ„ΞΉΞ¬
 		String[] cards = hand.split("\t");
-		int total = 0; //συνολκή τιμή των χαρτιών στο χέρι
-		int face; //φιγούρα τρέχοντος χαρτιού
-		int aceCount = 0 ; //αριθμός άσσων στο μοίρασμα
+		int total = 0; //ΟƒΟ…Ξ½ΞΏΞ»ΞΊΞ® Ο„ΞΉΞΌΞ® Ο„Ο‰Ξ½ Ο‡Ξ±ΟΟ„ΞΉΟΞ½ ΟƒΟ„ΞΏ Ο‡Ξ­ΟΞΉ
+		int face; //Ο†ΞΉΞ³ΞΏΟΟΞ± Ο„ΟΞ­Ο‡ΞΏΞ½Ο„ΞΏΟ‚ Ο‡Ξ±ΟΟ„ΞΉΞΏΟ
+		int aceCount = 0 ; //Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ¬ΟƒΟƒΟ‰Ξ½ ΟƒΟ„ΞΏ ΞΌΞΏΞ―ΟΞ±ΟƒΞΌΞ±
 		
 		for (int i = 0 ; i< cards.length; i++)
 		{
-			//ανάλυση συμβολοσειράς και λήψη πρώτου int στο String
+			//Ξ±Ξ½Ξ¬Ξ»Ο…ΟƒΞ· ΟƒΟ…ΞΌΞ²ΞΏΞ»ΞΏΟƒΞµΞΉΟΞ¬Ο‚ ΞΊΞ±ΞΉ Ξ»Ξ®ΟΞ· Ο€ΟΟΟ„ΞΏΟ… int ΟƒΟ„ΞΏ String
 			face = Integer.parseInt( cards[i].substring(0, cards[i].indexOf(" ")));
 			
 			switch (face)
 			{
-			case 1: //αν είναι άσσος, αυξάνει το aceCount
+			case 1: //Ξ±Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ¬ΟƒΟƒΞΏΟ‚, Ξ±Ο…ΞΎΞ¬Ξ½ΞµΞΉ Ο„ΞΏ aceCount
 				++aceCount;
 				break;
-			case 11: //βαλές
-			case 12: //βασίλισσα
-			case 13: //βασιλιάς
+			case 11: //Ξ²Ξ±Ξ»Ξ­Ο‚
+			case 12: //Ξ²Ξ±ΟƒΞ―Ξ»ΞΉΟƒΟƒΞ±
+			case 13: //Ξ²Ξ±ΟƒΞΉΞ»ΞΉΞ¬Ο‚
 				total += 10;
 				break;
-			default: //διαφορετικα ,προσθέτει την τιμή 
+			default: //Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ± ,Ο€ΟΞΏΟƒΞΈΞ­Ο„ΞµΞΉ Ο„Ξ·Ξ½ Ο„ΞΉΞΌΞ® 
 				total += face;
 				break;
-			}//τέλος switch
-		}//τέλος της for
+			}//Ο„Ξ­Ξ»ΞΏΟ‚ switch
+		}//Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ for
 		
-		//υπολογίζει την καλύτερη χρήση των άσσων
+		//Ο…Ο€ΞΏΞ»ΞΏΞ³Ξ―Ξ¶ΞµΞΉ Ο„Ξ·Ξ½ ΞΊΞ±Ξ»ΟΟ„ΞµΟΞ· Ο‡ΟΞ®ΟƒΞ· Ο„Ο‰Ξ½ Ξ¬ΟƒΟƒΟ‰Ξ½
 		if (aceCount > 0)
 		{
-			//αν είναι δυνατόν , μετρά τον άσσο σαν 11
+			//Ξ±Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄Ο…Ξ½Ξ±Ο„ΟΞ½ , ΞΌΞµΟ„ΟΞ¬ Ο„ΞΏΞ½ Ξ¬ΟƒΟƒΞΏ ΟƒΞ±Ξ½ 11
 			if(total +11 + aceCount -1 <=21)
 				total+=11+aceCount-1;
-			else //διαφορετικά μετρά όλους τους άσσους σαν 1
+			else //Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ¬ ΞΌΞµΟ„ΟΞ¬ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ Ξ¬ΟƒΟƒΞΏΟ…Ο‚ ΟƒΞ±Ξ½ 1
 				total += aceCount;
-		}//τέλος if
+		}//Ο„Ξ­Ξ»ΞΏΟ‚ if
 		
 		return total;
-	}//τέλος της WebMethod getHandValue
+	}//Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ WebMethod getHandValue
 	
-}//τέλος της κλάσης Blackjack
+}//Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ ΞΊΞ»Ξ¬ΟƒΞ·Ο‚ Blackjack
